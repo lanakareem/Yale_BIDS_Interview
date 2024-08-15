@@ -1,0 +1,8 @@
+# Python
+backend/venv/
+__pycache__/
+
+
+# Environment Variables
+*.env
+node_modules
