@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import SearchForm from './components/searchForm';
 import PublicationDetails from './components/publicationDetails';
 import Pagination from './components/pagination';
@@ -12,6 +12,13 @@ function App() {
   const [selectedPublication, setSelectedPublication] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
+
+  //make sure fetchResults(1) is called only after publicationIds is updated
+  useEffect(() => {
+    if (publicationIds.length > 0) {
+      fetchResults(1); //fetches detailed results for first page
+    }
+  }, [publicationIds]);
 
   //Handling Search Queries
   const handleSearch = async (query) => {
@@ -27,8 +34,6 @@ function App() {
       console.log('Publication IDs:', data.ids);
       setPublicationIds(data.ids);
 
-      //Fetch detailed results for the first page:
-      fetchResults(1);
     } catch (error) {
       console.error('Error fetching data:', error);
     }
@@ -39,9 +44,10 @@ function App() {
     try {
       const response = await fetch(`http://127.0.0.1:5000/api/publications/details?ids=${publicationIds.join(',')}&page=${page}`);
       const data = await response.json();
+      console.log('Fetched Results:', data); 
       setResults(data.results);
       setCurrentPage(page);
-      setTotalPages(data.totalPages); // Ensure your backend returns totalPages
+      setTotalPages(data.totalPages); // Ensure backend returns totalPages
     } catch (error) {
       console.error('Error fetching results:', error);
     }

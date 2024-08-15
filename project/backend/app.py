@@ -5,11 +5,13 @@ import os
 load_dotenv()
 
 from flask import Flask, jsonify, request
+from flask_cors import CORS
 import requests
 from config import Config
 import xml.etree.ElementTree as ET
 
 app = Flask(__name__)
+CORS(app)
 app.config.from_object(Config)
 
 #define simple route to send default response:
@@ -39,7 +41,7 @@ def get_publication_ids():
     print("API Response:", result)
 
     #Get IDs and return:
-    ids = result['searchresult'].get('idlist', []) #searchresult contains list of publication IDs that match the query
+    ids = result['esearchresult'].get('idlist', []) #searchresult contains list of publication IDs that match the query
     return jsonify({'ids': ids}) #return JSON response containing list of extracted IDs
 
 
@@ -103,7 +105,15 @@ def get_publication_details():
 
         details.append(pub_details)
 
-    return jsonify(details)
+    #Calculate total pages:
+    total_results = len(ids)
+    results_per_page = 20
+    total_pages = (total_results + results_per_page - 1) // results_per_page
+
+    return jsonify({
+        'results': details,
+        'totalPages': total_pages
+        })
 
 if __name__ == '__main__':
     app.run(debug=True)

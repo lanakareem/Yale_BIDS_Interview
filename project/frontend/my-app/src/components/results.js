@@ -5,7 +5,7 @@ import React from 'react';
 
 const Results = ({ results }) => (
   <div>
-    {results.length === 0 ? (
+    {results?.length === 0 ? (
       <p>No results found.</p>
     ) : (
       <ul>
