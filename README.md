@@ -18,6 +18,7 @@ Follow these steps to set up the project:
 1. Clone the Repository
 
     git clone https://github.com/lanakareem/Yale_BIDS_Interview.git
+    
     cd Yale_BIDS_Interview/project
 
 2. Set Up the Backend
