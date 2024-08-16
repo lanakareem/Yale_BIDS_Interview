@@ -81,9 +81,16 @@ def get_publication_details():
             pub_details['Abstract'] = article.findtext('.//AbstractText')
         
         #Extract Author List:
+        # Extract Author List:
         if 'AuthorList' in fields or 'all' in fields:
-            authors = [author.findtext('.//LastName') + ' ' + author.findtext('.//ForeName') for author in article.findall('.//Author')]
+            authors = []
+            for author in article.findall('.//Author'):
+                last_name = author.findtext('.//LastName') or ''
+                fore_name = author.findtext('.//ForeName') or ''
+                full_name = f"{last_name} {fore_name}".strip()
+                authors.append(full_name)
             pub_details['AuthorList'] = authors
+
         
         #Extract Journal:
         if 'Journal' in fields or 'all' in fields:
