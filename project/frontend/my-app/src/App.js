@@ -31,7 +31,6 @@ function App() {
         body: JSON.stringify({ query }),
       });
       const data = await response.json();
-      console.log('Publication IDs:', data.ids);
       setPublicationIds(data.ids);
 
     } catch (error) {
@@ -44,7 +43,6 @@ function App() {
     try {
       const response = await fetch(`http://127.0.0.1:5000/api/publications/details?ids=${publicationIds.join(',')}&page=${page}`);
       const data = await response.json();
-      console.log('Fetched Results:', data); 
       setResults(data.results);
       setCurrentPage(page);
       setTotalPages(data.totalPages); // Ensure backend returns totalPages

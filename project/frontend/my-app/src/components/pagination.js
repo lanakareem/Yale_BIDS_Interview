@@ -2,27 +2,36 @@
 //HANDLES MULTIPLE PAGES OF SEARCH RESULTS
 
 import React from 'react';
+import './pagination.css';
 
 const Pagination = ({ currentPage, totalPages, onPageChange }) => {
-  const handlePageChange = (page) => {
-    if (page >= 1 && page <= totalPages) {
-      onPageChange(page);
+  const handlePrevious = () => {
+    if (currentPage > 1) {
+      onPageChange(currentPage - 1);
+    }
+  };
+
+  const handleNext = () => {
+    if (currentPage < totalPages) {
+      onPageChange(currentPage + 1);
     }
   };
 
   return (
     <div className="pagination">
       <button
-        onClick={() => handlePageChange(currentPage - 1)}
+        className="pagination-button"
+        onClick={handlePrevious}
         disabled={currentPage === 1}
       >
         Previous
       </button>
-      <span>
+      <span className="pagination-info">
         Page {currentPage} of {totalPages}
       </span>
       <button
-        onClick={() => handlePageChange(currentPage + 1)}
+        className="pagination-button"
+        onClick={handleNext}
         disabled={currentPage === totalPages}
       >
         Next
@@ -32,3 +41,4 @@ const Pagination = ({ currentPage, totalPages, onPageChange }) => {
 };
 
 export default Pagination;
+

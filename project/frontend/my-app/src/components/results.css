@@ -1,0 +1,39 @@
+  .publication-card {
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 20px;
+    max-width: 300px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .publication-card:hover {
+    transform: scale(1.02);
+  }
+  
+  .publication-card h3 {
+    margin: 0;
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #333;
+  }
+  
+  .publication-card p {
+    margin: 0; 
+    font-size: 0.9rem; 
+  }
+
+  .publication-card a {
+    color: #007bff;
+    text-decoration: none;
+    font-size: 0.9rem;
+  }
+  
+  .publication-card a:hover {
+    text-decoration: underline;
+  }
+  

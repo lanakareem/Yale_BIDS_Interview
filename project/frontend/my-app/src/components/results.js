@@ -2,15 +2,16 @@
 // Display detailed info about each publication and link to the original PubMed entry
 
 import React from 'react';
+import './results.css';
 
 const Results = ({ results }) => (
-  <div>
+  <div className="results-container">
     {results?.length === 0 ? (
       <p>No results found.</p>
     ) : (
-      <ul>
+      <div className="results-grid">
         {results.map(result => (
-          <li key={result.PMID}>
+          <div className="publication-card" key={result.PMID}>
             <h3>{result.Title || 'No title available.'}</h3>
             <p>{result.Abstract || 'No abstract available.'}</p>
             <p>Authors: {result.AuthorList.length > 0 ? result.AuthorList.join(', ') : 'No authors listed.'}</p>
@@ -19,9 +20,9 @@ const Results = ({ results }) => (
             <a href={`https://pubmed.ncbi.nlm.nih.gov/${result.PMID}`} target="_blank" rel="noopener noreferrer">
               View on PubMed
             </a>
-          </li>
+          </div>
         ))}
-      </ul>
+      </div>
     )}
   </div>
 );
